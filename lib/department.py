@@ -90,10 +90,3 @@ class Department:
         row = CURSOR.execute("SELECT * FROM departments WHERE name = ?", (name,)).fetchone()
         return cls.instance_from_db(row) if row else None
 
-    def employees(self):
-        """Return list of Employee objects associated with this department"""
-        from employee import Employee
-        sql = "SELECT * FROM employees WHERE department_id = ? ORDER BY id"
-        CURSOR.execute(sql, (self.id,))
-        rows = CURSOR.fetchall()
-        return [Employee.instance_from_db(row) for row in rows] if rows else []
